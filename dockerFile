@@ -1,0 +1,26 @@
+# Use official Node.js image
+FROM node:18.16.0
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json first
+COPY package.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the project files
+COPY . .
+
+# Build the React app
+RUN npm run build
+
+# Expose necessary ports
+EXPOSE 5000
+# Backend API
+EXPOSE 3000
+# Frontend (React)
+
+# Start the app (concurrently runs both frontend and backend)
+CMD ["npm", "run", "start"]
